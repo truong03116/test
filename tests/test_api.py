@@ -10,6 +10,6 @@ from utils.config_reader import ConfigReader
 @pytest.mark.api
 class TestAPI:
     def test_get_endpoint(self):
-        self.api_helper = APIHelper(ConfigReader.get_api_url())
+        self.api_helper = APIHelper(ConfigReader.get_api_key())
         response = self.api_helper.get("api/users",params={"page":2})
 
