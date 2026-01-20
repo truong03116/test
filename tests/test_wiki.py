@@ -1,22 +1,23 @@
-from selenium import webdriver
-import pytest
+import os
 import csv
+import pytest
 from selenium.webdriver.common.by import By
-from time import sleep 
 from selenium.webdriver.common.keys import Keys
+from time import sleep
+
+def read_data_from_file(filename):
+    base_dir = os.path.dirname(__file__)      # thư mục tests
+    file_path = os.path.join(base_dir, filename)
+
+    with open(file_path, mode='r', encoding='utf-8') as file:
+        csv_reader = csv.DictReader(file)
+        return [row['keyword'] for row in csv_reader]
+
 class TestWiki:
-    def read_data_from_file(file_path):
-        with open(file_path,mode='r') as file:
-            csv_reader = csv.DictReader(file)
-            keywords = []
-            for row in csv_reader:
-                keywords.append(row['keyword'])
-            return keywords
-    testdata = read_data_from_file('data.csv')
-    @pytest.mark.parametrize('keyword',testdata)
-    def test_search_wiki(self,driver,keyword):
-        search_box = driver.find_element(By.ID,"searchInput")
+
+    @pytest.mark.parametrize('keyword', read_data_from_file('data.csv'))
+    def test_search_wiki(self, driver, keyword):
+        search_box = driver.find_element(By.ID, "searchInput")
         search_box.click()
         search_box.send_keys(keyword + Keys.ENTER)
-
         sleep(3)
