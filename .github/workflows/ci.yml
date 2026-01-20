@@ -40,4 +40,4 @@ jobs:
           path: report/report.html
       - name: Run tests with pytest
         run: |
-          pytest ${{matrix.suite}} --html=report/report.html --self-contained-html
+          pytest ${{matrix.suite}} --maxfail=1 --disable-warnings -q
