@@ -9,10 +9,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout source code from github
-        uses: actions/checkout@4
+        uses: actions/checkout@v4
 
       - name: Install python
-        uses: actions/setup-python@5
+        uses: actions/setup-python@v5
         with:
           python-version: '3.13'
 
