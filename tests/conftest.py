@@ -3,7 +3,7 @@ import pytest
 import os
 from selenium.webdriver.remote.webelement import WebElement as RemoteWebElement
 
-# Screenshot wrapper (OK – giữ lại)
+# Screenshot wrapper (GIỮ LẠI – rất tốt)
 if not hasattr(RemoteWebElement, "_screenshot_wrapped"):
     _orig_screenshot = RemoteWebElement.screenshot
 
@@ -20,7 +20,6 @@ if not hasattr(RemoteWebElement, "_screenshot_wrapped"):
 @pytest.fixture(scope="function")
 def driver():
     options = webdriver.ChromeOptions()
-
     is_ci = os.getenv("CI") == "true"
 
     if is_ci:
@@ -28,7 +27,6 @@ def driver():
         options.add_argument("--headless=new")
         options.add_argument("--no-sandbox")
         options.add_argument("--disable-dev-shm-usage")
-        options.add_argument("--disable-gpu")
         options.add_argument("--window-size=1920,1080")
     else:
         # ✅ Local
@@ -38,6 +36,7 @@ def driver():
 
     driver = webdriver.Chrome(options=options)
     driver.implicitly_wait(10)
-    driver.get("https://www.wikipedia.org/")
+
     yield driver
+
     driver.quit()
