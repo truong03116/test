@@ -38,3 +38,6 @@ jobs:
         with:
           name: pytest-report
           path: report/report.html
+      - name: Run tests with pytest
+        run: |
+          pytest ${{matrix.suite}} --html=report/report.html --self-contained-html
