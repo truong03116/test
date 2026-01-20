@@ -11,6 +11,5 @@ from utils.config_reader import ConfigReader
 class TestAPI:
     def test_get_endpoint(self):
         self.api_helper = APIHelper(ConfigReader.get_api_url())
-        response = self.api_helper.get("api/users",params={"page":2}
-        print)
+        response = self.api_helper.get("api/users",params={"page":2})
 
