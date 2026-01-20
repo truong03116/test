@@ -18,14 +18,16 @@ if not hasattr(RemoteWebElement, "_screenshot_wrapped"):
     RemoteWebElement.screenshot = _screenshot_with_images
     RemoteWebElement._screenshot_wrapped = True
 
-
-
-
 @pytest.fixture(scope="function")
 def driver():
-    driver = webdriver.Chrome()
-    url = "https://opensource-demo.orangehrmlive.com/"
-    driver.get(url)
+    options = webdriver.ChromeOptions()
+    # Tắt headless mode để nhìn thấy reCAPTCHA
+    # options.add_argument("--headless")  # Comment out để thấy browser
+    options.add_argument("--disable-blink-features=AutomationControlled")
+    options.add_experimental_option("excludeSwitches", ["enable-automation"])
+    options.add_experimental_option('useAutomationExtension', False)
+    
+    driver = webdriver.Chrome(options=options)
     driver.implicitly_wait(10)
     driver.maximize_window()
     yield driver

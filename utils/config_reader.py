@@ -20,3 +20,9 @@ class ConfigReader:
     @staticmethod
     def get_password():
         return ConfigReader._load_config()['credentials']['password']
+    @staticmethod
+    def get_timeout():
+        return ConfigReader._load_config()['timeout']['implicit']
+    @staticmethod
+    def get_api_key():
+        return ConfigReader._load_config()['api_url']
